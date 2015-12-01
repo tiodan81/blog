@@ -190,6 +190,7 @@ var blog = {
 
   publish: function() {
     articles.forEach(function(a) {
+      console.log(a);
       var $newPost = $('#template').clone();
       $newPost.html(a.toHTML()).appendTo('main');
     });
