@@ -183,7 +183,9 @@ var blog = {
     articles.forEach(function(a) {
       a.daysAgo();
     });
-
+    articles = articles.sort(function(a, b) {
+      return a.age - b.age;
+    });
   },
 
   publish: function() {
@@ -212,12 +214,12 @@ Article.prototype.toHTML = function() {
   var url = this.authorUrl;
   var author = this.author;
   $('#author').html(function() {
-    return '<a href="' + url + '">' + author + '</a>';
+    return 'by <a href="' + url + '">' + author + '</a>';
   });
-  $('#publishedOn').text(this.publishedOn);
+  //$('#publishedOn').text(this.publishedOn);
   var age = this.age;
   $('#age').html(function() {
-    return age + ' days ago.';
+    return 'Published ' + age + ' days ago.';
   });
   $('#body').html(this.body);
 };
@@ -225,12 +227,10 @@ Article.prototype.toHTML = function() {
 Article.prototype.daysAgo = function() {
   var today = new Date();
   var posted = new Date(this.publishedOn);
-  console.log(posted);
   var diff = today.getTime() - posted.getTime();
   diff = Math.floor(diff / 86400000);
   this.age = diff;
 };
-
 
 blog.getArticles(rawData);
 blog.dateAndSort();
