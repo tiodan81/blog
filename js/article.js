@@ -12,18 +12,18 @@ Article.prototype.toHTML = function() {
   var $newPost = $('#template').clone();
   $newPost.addClass('post');
   $newPost.removeAttr('id');
-  $('#title').text(this.title);
-  $('#category').text(this.category);
+  $newPost.find('.title').text(this.title);
+  $newPost.find('.category').text(this.category);
   var url = this.authorUrl;
   var author = this.author;
-  $('#author').html(function() {
+  $newPost.find('.author').html(function() {
     return 'by <a href="' + url + '">' + author + '</a>';
   });
   var age = this.age;
-  $('#age').html(function() {
+  $newPost.find('.age').html(function() {
     return 'Published ' + age + ' days ago';
   });
-  $('#body').html(this.body);
+  $newPost.find('.body').html(this.body);
   $('main').append($newPost);
 };
 
