@@ -10,6 +10,7 @@ body {
 header {
   display: flex;
   flex-direction: column;
+  flex: 1 100%;
   margin-bottom: 30px;
   background-color: #447784;
 }
@@ -22,6 +23,10 @@ header {
 nav {
   display: flex;
   flex-direction: column;
+}
+
+.tab {
+  
 }
 
 main {
@@ -39,7 +44,7 @@ main {
 
 
 .title {
-  /*margin-top: 0px;*/
+  margin-top: 0px;
   font-size: 1.5em;
 }
 
