@@ -25,7 +25,7 @@ Article.prototype.toHTML = function() {
   });
   $newPost.find('.body').html(this.body);
   $newPost.data('info', {author: author, category: this.category});
-  $('main').append($newPost);
+  $('#articles').append($newPost);
 };
 
 Article.prototype.daysAgo = function() {

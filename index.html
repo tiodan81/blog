@@ -9,10 +9,11 @@
     <header>
       <h1>Dan's Big Blog</h1>
       <nav>
-        <ul>
-          <li class="tab" data-content="articles">Blog</li>
-          <li class="tab" data-content="about">About</li>
+        <ul class="main-nav">
+          <li class="tab" data-content="about"><a>About</a></li>
+          <li class="tab" data-content="articles"><a>Blog</a></li>
         </ul>
+        <br />
         <form>
           <select name="filterAuthor">
             <option id="auFilter">Filter by author</option>
@@ -24,14 +25,21 @@
       </nav>
     </header>
     <main>
-      <article id="template">
-        <h1 class="title"></h1>
-        <p class="author"></p>
-        <p class="category"></p>
-        <p class="age"></p>
-        <p class="body"></p>
-        <a href="#" class="read-on">Read on</a>
-      </article>
+      <section class="tab-content" id="articles">
+        <article id="template">
+          <h1 class="title"></h1>
+          <p class="author"></p>
+          <p class="category"></p>
+          <p class="age"></p>
+          <p class="body"></p>
+          <a href="#" class="read-on">Read on</a>
+        </article>
+      </section>
+      <section class="tab-content" id="about">
+        <p>
+          My name is Dan. I've been blogging for more than a day now. I'm of medium height, I wear glasses, and love nachos.
+        </p>
+      </section>
     </main>
     <footer></footer>
     <script type="text/javascript" src="js/jquery-2.1.4.js"></script>

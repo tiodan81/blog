@@ -83,6 +83,14 @@ var blog = {
         }
       });
     });
+  },
+
+  tabNav: function() {
+    $('.main-nav').on('click', '.tab', function(e){
+      $('.tab-content').hide();
+      $('#' + $(this).data('content')).fadeIn();
+    });
+   $('.tab').trigger('click');
   }
 };
 
@@ -98,4 +106,5 @@ $(function() {
   blog.hideArticles();
   blog.populateFilters();
   blog.filterArticles();
+  blog.tabNav();
 });
