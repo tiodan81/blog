@@ -90,7 +90,7 @@ var blog = {
       $('.tab-content').hide();
       $('#' + $(this).data('content')).fadeIn();
     });
-   $('.tab').trigger('click');
+    $('.tab').trigger('click');
   }
 };
 
