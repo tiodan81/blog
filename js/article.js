@@ -24,6 +24,7 @@ Article.prototype.toHTML = function() {
     return 'Published ' + age + ' days ago';
   });
   $newPost.find('.body').html(this.body);
+  $newPost.data('info', {author: author, category: this.category});
   $('main').append($newPost);
 };
 
