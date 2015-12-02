@@ -1,5 +1,6 @@
 body {
   font-family: Helvetica, sans-serif;
+  background-color: #82bb5d;
 }
 
 .tab-content {
@@ -9,8 +10,13 @@ body {
 header {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin-bottom: 30px;
+  background-color: #447784;
+}
+
+#blogtitle {
+  margin: 10px auto;
+  font-size: 3em;
 }
 
 nav {
@@ -24,15 +30,19 @@ main {
   max-width: 950px;
 }
 
-/*a {
-  text-decoration: none;
-  color: #333;
-}*/
+.post {
+  background-color: #ffd4aa;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 10px;
+}
 
-#title {
+
+.title {
+  /*margin-top: 0px;*/
   font-size: 1.5em;
 }
 
-#author {
+.author, .category {
   font-style: italic;
 }
