@@ -3,28 +3,49 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/index.css" media="screen" title="no title" charset="utf-8">
-    <title>Dan's Blog</title>
+    <title>Dan's Big Blog</title>
   </head>
   <body>
     <header>
-      <h1>Dan's Big Blog</h1>
+      <h1 id="blogtitle">Dan's Big Blog</h1>
       <nav>
-
+        <ul class="main-nav">
+          <li class="tab" data-content="about"><a>About</a></li>
+          <li class="tab" data-content="articles"><a>Blog</a></li>
+        </ul>
+        <br />
+        <form>
+          <select name="filterAuthor">
+            <option id="auFilter">Filter by author</option>
+          </select>
+          <br />
+          <select name="filterCategory">
+            <option id="catFilter">Filter by category</option>
+          </select>
+        </form>
       </nav>
     </header>
     <main>
-      <article id="template">
-        <h1 id="title"></h1>
-        <p id="author"></p>
-        <p id="category"></p>
-        <!-- <p id="publishedOn"></p> -->
-        <p id="age"></p>
-        <p id="body"></p>
-      </article>
+      <section class="tab-content" id="articles">
+        <article id="template">
+          <h2 class="title"></h2>
+          <p class="author"></p>
+          <p class="category"></p>
+          <p class="age"></p>
+          <p class="body"></p>
+          <a href="#" class="read-on">Read on</a>
+        </article>
+      </section>
+      <section class="tab-content" id="about">
+        <p>
+          My name is Dan. I've been blogging for more than a day now. I'm of medium height, I wear glasses, and love nachos.
+        </p>
+      </section>
     </main>
     <footer></footer>
     <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
-    <script type="text/javascript" src="js/blog.js"></script>
     <script type="text/javascript" src="js/article.js"></script>
+    <script type="text/javascript" src="js/blog.js"></script>
+    <script type="text/javascript"src="js/rawdata.js"></script>
   </body>
 </html>
