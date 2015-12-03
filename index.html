@@ -34,12 +34,12 @@
       <section class="tab-content" id="articles">
         <script id="template" type="text/x-handlebars-template">
           {{#each articles}}
-          <article class="post">
+          <article class="post" data-author="{{author}}" data-category="{{category}}">
             <h2 class="title">{{title}}</h2>
-            <p class="author">{{author}}</p>
+            <p class="author"><a href="{{authorUrl}}">{{author}}</a></p>
             <p class="category">{{category}}</p>
-            <p class="age">{{age}}</p>
-            <p class="body">{{body}}</p>
+            <p class="age">Published {{age}} days ago.</p>
+            <div class="body">{{{body}}}</div>
             <a href="#" class="read-on">Read on</a>
           </article>
           {{/each}}
