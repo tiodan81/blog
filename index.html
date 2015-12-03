@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
     <link rel="stylesheet" href="css/index.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/css/icons.css">
     <title>Dan's Big Blog</title>
@@ -31,14 +32,18 @@
     </header>
     <main>
       <section class="tab-content" id="articles">
-        <article id="template">
-          <h2 class="title"></h2>
-          <p class="author"></p>
-          <p class="category"></p>
-          <p class="age"></p>
-          <p class="body"></p>
-          <a href="#" class="read-on">Read on</a>
-        </article>
+        <script id="template" type="text/x-handlebars-template">
+          {{#each articles}}
+          <article class="post">
+            <h2 class="title">{{title}}</h2>
+            <p class="author">{{author}}</p>
+            <p class="category">{{category}}</p>
+            <p class="age">{{age}}</p>
+            <p class="body">{{body}}</p>
+            <a href="#" class="read-on">Read on</a>
+          </article>
+          {{/each}}
+        </script>
       </section>
       <section class="tab-content" id="about">
         <p>
@@ -48,6 +53,7 @@
     </main>
     <footer></footer>
     <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
     <script type="text/javascript" src="js/article.js"></script>
     <script type="text/javascript" src="js/blog.js"></script>
     <script type="text/javascript" src="js/rawdata.js"></script>

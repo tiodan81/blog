@@ -30,7 +30,7 @@ var blog = {
     this.articles.forEach(function(a) {
       a.toHTML();
     });
-    $('#template').remove();
+    // $('#template').remove();
   },
 
   truncateArticles: function() {
