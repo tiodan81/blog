@@ -60,6 +60,7 @@ var blog = {
   filterArticles: function() {
     $('select[name="filterAuthor"]').on('change', function() {
       $selection = this.value;
+      console.log($selection);
       $('select[name="filterCategory"]').prop('selectedIndex', 0);
       $('.post').each(function() {
         var data = $(this).data().info.author;
