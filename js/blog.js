@@ -91,6 +91,12 @@ var blog = {
       $('#' + $(this).data('content')).fadeIn();
     });
     $('.tab').trigger('click');
+  },
+
+  menuToggle: function() {
+    $('.icon-menu').on('click', function() {
+      $('ul').slideToggle('slow');
+    });
   }
 };
 
@@ -107,4 +113,5 @@ $(function() {
   blog.populateFilters();
   blog.filterArticles();
   blog.tabNav();
+  blog.menuToggle();
 });

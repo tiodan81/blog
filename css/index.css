@@ -1,8 +1,3 @@
-@viewport {
-  width: device-width;
-  zoom: 1;
-}
-
 body {
   font-family: Helvetica, sans-serif;
   background-color: #82bb5d;
@@ -33,24 +28,25 @@ ul {
 }
 
 li {
-  display: inline;
+  display: block;
   list-style-type: none;
   font-size: 1.2em;
   margin-right: 0.4em;
+  margin-top: 0.5em;
 }
 
 .icon-menu {
-  display: none;
+  display: block;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (min-width: 500px) {
   .icon-menu {
-    display: block;
+    display: none;
   }
 
   li {
-    display: block;
-    margin-top: 0.5em;
+    display: inline;
+    /*margin-top: 0.5em;*/
   }
 }
 
