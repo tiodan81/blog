@@ -33,7 +33,7 @@ var blog = {
     $('#template').remove();
   },
 
-  hideArticles: function() {
+  truncateArticles: function() {
     $('.body p:not(:first-child)').hide();
     $('.read-on').on('click', function(e) {
       e.preventDefault();
@@ -64,7 +64,9 @@ var blog = {
       $('select[name="filterCategory"]').prop('selectedIndex', 0);
       $('.post').each(function() {
         var data = $(this).data().info.author;
-        if (data != $selection) {
+        if ($selection == 'Filter by author') {
+          $('.post').show();
+        } else if (data != $selection) {
           $(this).hide();
         } else {
           $(this).show();
@@ -77,7 +79,9 @@ var blog = {
       $('select[name="filterAuthor"]').prop('selectedIndex', 0);
       $('.post').each(function() {
         var data = $(this).data().info.category;
-        if (data != $selection) {
+        if ($selection == 'Filter by category') {
+          $('.post').show();
+        } else if (data != $selection) {
           $(this).hide();
         } else {
           $(this).show();
@@ -110,7 +114,7 @@ $(function() {
   blog.getFilters();
   blog.dateAndSort();
   blog.publish();
-  blog.hideArticles();
+  blog.truncateArticles();
   blog.populateFilters();
   blog.filterArticles();
   blog.tabNav();
