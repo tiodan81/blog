@@ -27,16 +27,17 @@ var blog = {
   },
 
   publish: function() {
-    this.articles.forEach(function(a) {
-      a.toHTML();
-    });
-    $('#template').remove();
+    var templateScript = $('#template').html();
+    var compiledTemplate = Handlebars.compile(templateScript);
+    var compiledArticle = compiledTemplate(this);
+    $('#articles').append(compiledArticle);
   },
 
-  hideArticles: function() {
+  truncateArticles: function() {
     $('.body p:not(:first-child)').hide();
     $('.read-on').on('click', function(e) {
       e.preventDefault();
+      console.log('read!');
       $(this).parent().find('p').fadeIn();
       $(this).hide();
     });
@@ -60,11 +61,12 @@ var blog = {
   filterArticles: function() {
     $('select[name="filterAuthor"]').on('change', function() {
       $selection = this.value;
-      console.log($selection);
       $('select[name="filterCategory"]').prop('selectedIndex', 0);
       $('.post').each(function() {
-        var data = $(this).data().info.author;
-        if (data != $selection) {
+        var data = $(this).data('author');
+        if ($selection == 'Filter by author') {
+          $('.post').show();
+        } else if (data != $selection) {
           $(this).hide();
         } else {
           $(this).show();
@@ -76,8 +78,10 @@ var blog = {
       $selection = this.value;
       $('select[name="filterAuthor"]').prop('selectedIndex', 0);
       $('.post').each(function() {
-        var data = $(this).data().info.category;
-        if (data != $selection) {
+        var data = $(this).data('category');
+        if ($selection == 'Filter by category') {
+          $('.post').show();
+        } else if (data != $selection) {
           $(this).hide();
         } else {
           $(this).show();
@@ -110,7 +114,7 @@ $(function() {
   blog.getFilters();
   blog.dateAndSort();
   blog.publish();
-  blog.hideArticles();
+  blog.truncateArticles();
   blog.populateFilters();
   blog.filterArticles();
   blog.tabNav();

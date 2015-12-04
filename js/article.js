@@ -8,26 +8,6 @@ var Article = function(opts) {
   this.age = 0;
 };
 
-Article.prototype.toHTML = function() {
-  var $newPost = $('#template').clone();
-  $newPost.addClass('post');
-  $newPost.removeAttr('id');
-  $newPost.find('.title').text(this.title);
-  $newPost.find('.category').text(this.category);
-  var url = this.authorUrl;
-  var author = this.author;
-  $newPost.find('.author').html(function() {
-    return 'by <a href="' + url + '">' + author + '</a>';
-  });
-  var age = this.age;
-  $newPost.find('.age').html(function() {
-    return 'Published ' + age + ' days ago';
-  });
-  $newPost.find('.body').html(this.body);
-  $newPost.data('info', {author: author, category: this.category});
-  $('#articles').append($newPost);
-};
-
 Article.prototype.daysAgo = function() {
   var today = new Date();
   var posted = new Date(this.publishedOn);
