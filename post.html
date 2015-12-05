@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
     <link rel="stylesheet" href="css/style.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="/css/icons.css">
+    <link rel="stylesheet" href="css/icons.css">
     <title>Dan's Big Blog</title>
   </head>
   <body>
@@ -19,42 +19,47 @@
           <li><a href="https://twitter.com/dpschwartz81"><span class="icon-twitter">Twitter</span></a></li>
           <li><a href="https://github.com/tiodan81"><span class="icon-github">GitHub</span></a></li>
         </ul>
-        <form>
-          <select name="filterAuthor">
-            <option id="auFilter">Filter by author</option>
-          </select>
-          <br />
-          <select name="filterCategory">
-            <option id="catFilter">Filter by category</option>
-          </select>
-        </form>
       </nav>
     </header>
     <main>
-      <section class="tab-content" id="articles">
-        <script id="template" type="text/x-handlebars-template">
-          {{#each articles}}
-          <article class="post" data-author="{{author}}" data-category="{{category}}">
-            <h2 class="title">{{title}}</h2>
-            <p class="author"><a href="{{authorUrl}}">{{author}}</a></p>
-            <p class="category">{{category}}</p>
-            <p class="age">Published {{age}} days ago.</p>
-            <div class="body">{{{body}}}</div>
-            <a href="#" class="read-on">Read on</a>
+      <section>
+        <form class="newPost">
+          <p>Title:
+            <input type="text" name="title" />
+          </p>
+          <p>Author:
+            <input type="text" name="author" />
+          </p>
+          <p>Author URL:
+            <input type="text" name="authorUrl" />
+          </p>
+          <p>Category:
+            <input type="text" name="category" />
+          </p>
+          <p>Body:
+            <textarea name="body">Type article here...</textarea>
+          </p>
+          <p>Click to publish</p>
+            <input type="checkbox" name="publish" value="publish" />
+          </form>
+          <p>
+            Output: <span id="previewTarget"></span>
+          </p>
+        </section>
+        <section class="previewPost">
+          <article class="post">
+            <h2 class="title"></h2>
+            <p class="author"></p>
+            <p class="category"></p>
+            <div class="body"></div>
           </article>
-          {{/each}}
-        </script>
-      </section>
-      <section class="tab-content" id="about">
-        <p>
-          My name is Dan. I've been blogging for more than a day now. I'm of medium height, I wear glasses, and love nachos.
-        </p>
-      </section>
+        </section>
+        <section class="previewJSON"></section>
     </main>
     <footer></footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
     <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+    <script type="text/javascript" src="js/post.js"></script>
     <script type="text/javascript" src="js/article.js"></script>
     <script type="text/javascript" src="js/blog.js"></script>
     <script type="text/javascript" src="js/rawdata.js"></script>
