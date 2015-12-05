@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
     <link rel="stylesheet" href="css/style.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="/css/icons.css">
+    <link rel="stylesheet" href="css/icons.css">
     <title>Dan's Big Blog</title>
   </head>
   <body>
@@ -22,8 +22,8 @@
       </nav>
     </header>
     <main>
-      <section class="newPost">
-        <form>
+      <section>
+        <form class="newPost">
           <p>Title:
             <input type="text" name="title" />
           </p>
@@ -36,16 +36,30 @@
           <p>Category:
             <input type="text" name="category" />
           </p>
-          <p>Body: </p>
+          <p>Body:
             <textarea name="body">Type article here...</textarea>
+          </p>
           <p>Click to publish</p>
             <input type="checkbox" name="publish" value="publish" />
           </form>
+          <p>
+            Output: <span id="previewTarget"></span>
+          </p>
         </section>
+        <section class="previewPost">
+          <article class="post">
+            <h2 class="title"></h2>
+            <p class="author"></p>
+            <p class="category"></p>
+            <div class="body"></div>
+          </article>
+        </section>
+        <section class="previewJSON"></section>
     </main>
     <footer></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
     <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+    <script type="text/javascript" src="js/post.js"></script>
     <script type="text/javascript" src="js/article.js"></script>
     <script type="text/javascript" src="js/blog.js"></script>
     <script type="text/javascript" src="js/rawdata.js"></script>
