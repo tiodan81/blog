@@ -31,6 +31,10 @@ var blog = {
     var compiledTemplate = Handlebars.compile(templateScript);
     var compiledArticle = compiledTemplate(this);
     $('#articles').append(compiledArticle);
+    marked($('.body').html());
+    $('code').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
   },
 
   truncateArticles: function() {

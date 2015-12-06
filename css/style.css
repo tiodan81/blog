@@ -49,6 +49,10 @@ img {
   font-style: italic;
 }
 
+input {
+  background-image: none;
+}
+
 /**** LAYOUT RULES ****/
 
 body {
@@ -60,6 +64,18 @@ body {
 header {
   flex: 1 100%;
 }
+
+.formelem {
+  margin-bottom: 0.5em;
+  width: 100%;
+}
+
+textarea {
+  box-sizing: border-box;
+  width: 90%;
+  height: 10em;
+}
+
 
 /**** MODULE RULES ****/
 
@@ -103,6 +119,10 @@ li {
 
   li {
     display: inline;
+  }
+
+  textarea {
+    width: 20em;
   }
 }
 
