@@ -41,7 +41,6 @@ var blog = {
     $('.body p:not(:first-child)').hide();
     $('.read-on').on('click', function(e) {
       e.preventDefault();
-      console.log('read!');
       $(this).parent().find('p').fadeIn();
       $(this).hide();
     });
