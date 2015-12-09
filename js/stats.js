@@ -4,15 +4,17 @@ var stats = {
     author = author || null;
     if (!author) {
       return arr.map(function(e) {
+        console.log(e[property]);
         return e[property];
       });
     } else {
       var authArr = [];
-      arr.forEach(function(e) {
+      return arr.forEach(function(e) {
         if (e['author'] == author) {
           authArr.push(e[property]);
         }
       });
+      console.log(authArr);
       return authArr;
     }
   },
@@ -39,11 +41,6 @@ var stats = {
     return this.sum(arr) / arr.length;
   },
 
-  erudition: function(words) {
-    if (author == 'All Authors') {
-
-    }
-  },
 
   uniqueAuthors: function (articles) {
     var auth = this.pluck('author', articles);
@@ -54,6 +51,7 @@ var stats = {
   getWords: function(articles, author) {
     author = author || null;
     var allBodies = this.pluck('body', articles, author);
+    console.log(allBodies);
     var tempElem = document.createElement('div');
     tempElem.innerHTML = allBodies;
     var allWords = tempElem.textContent;
@@ -62,6 +60,13 @@ var stats = {
 
   totalWords: function(words) {
     return $('<p>Total number of words: ' + words.length + '</p>');
+  },
+
+  wordLength: function(words) {
+    console.log(words);
+    return words.map(function(e) {
+      return e.length();
+    });
   },
 
   makeAuthorFilter: function(auth) {
@@ -81,24 +86,30 @@ var stats = {
       this.totalWords(this.getWords(data)),
       '<p>Select an author to view average word length:</p>',
       this.makeAuthorFilter(this.uniqueAuthors(data)),
-      '<p>Average word length: '
+      //showErudition for all authors
     ]);
   },
 
-  getAuthorWords: function(e) {
-    this.getWords(data, e.target.value);
-
+  showErudition: function(e) {
+    console.log(e.target.value);
+    var words = stats.getWords(data, e.target.value);
+    console.log(words);
+    words = words.split(' ');
+    var lengths = stats.wordLength(words);
+    var avgLength = this.average(lengths);
+    $('#stats').append('<p>Average word length: ' + avgLength + '</p>');
   },
 
   filterListen: function() {
-    $('select').on('change', this.getAuthorWords);
-    $('select').trigger('change');
+    $('select').on('change', data, this.showErudition);
+    //$('select').trigger('change');
   }
 };
 
+var data = blog.getArticles(blog.rawData);
+
 $(function() {
-  var data = blog.getArticles(blog.rawData);
   stats.displayStats(data);
-  stats.filterListen();
+  stats.filterListen(data);
   blog.menuToggle();
 });
