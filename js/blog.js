@@ -1,4 +1,9 @@
 var blog = {
+
+  articles: [],
+  authors: [],
+  categories: [],
+
   getArticles: function(arr) {
     for (var i = 0; i < arr.length; i++) {
       this.articles.push(new Article(arr[i]));
@@ -107,7 +112,3 @@ var blog = {
     });
   }
 };
-
-blog.articles = [];
-blog.authors = [];
-blog.categories = [];
