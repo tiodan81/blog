@@ -1,4 +1,5 @@
 $(function() {
+  blog.init();
   blog.getArticles(blog.rawData);
   blog.getFilters();
   blog.dateAndSort();

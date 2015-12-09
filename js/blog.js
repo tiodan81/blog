@@ -4,6 +4,20 @@ var blog = {
   authors: [],
   categories: [],
 
+  init: function() {
+    $.getJSON('js/rawdata.json', function(data) {
+      if (localStorage.rawdata) {
+        console.log('Localstorage found.');
+        this.compareData(data);
+      } else {
+        console.log('Localstorage not found.');
+        localStorage.setItem('rawdata', JSON.stringify(data));
+      }
+    }).fail(function() {
+      console.log('Epic fail. Ajax unsuccessful.');
+    });
+  },
+  
   getArticles: function(arr) {
     for (var i = 0; i < arr.length; i++) {
       this.articles.push(new Article(arr[i]));
