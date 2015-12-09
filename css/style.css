@@ -76,6 +76,14 @@ textarea {
   height: 10em;
 }
 
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
 
 /**** MODULE RULES ****/
 

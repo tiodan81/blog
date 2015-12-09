@@ -1,4 +1,28 @@
 var blog = {
+
+  articles: [],
+  authors: [],
+  categories: [],
+
+  init: function() {
+    $.getJSON('js/rawdata.json', function(data) {
+      if (localStorage.rawdata) {
+        console.log('Localstorage found.');
+      } else {
+        console.log('Localstorage not found.');
+        localStorage.setItem('rawdata', JSON.stringify(data));
+      }
+      blog.compareData(data);
+    }).fail(function() {
+      console.log('Epic fail. Ajax unsuccessful.');
+    });
+  },
+
+  compareData: function(data) {
+
+     JSON.parse(localStorage.rawdata);
+  },
+
   getArticles: function(arr) {
     for (var i = 0; i < arr.length; i++) {
       this.articles.push(new Article(arr[i]));
@@ -41,7 +65,6 @@ var blog = {
     $('.body p:not(:first-child)').hide();
     $('.read-on').on('click', function(e) {
       e.preventDefault();
-      console.log('read!');
       $(this).parent().find('p').fadeIn();
       $(this).hide();
     });
@@ -108,19 +131,3 @@ var blog = {
     });
   }
 };
-
-blog.articles = [];
-blog.authors = [];
-blog.categories = [];
-
-$(function() {
-  blog.getArticles(blog.rawData);
-  blog.getFilters();
-  blog.dateAndSort();
-  blog.publish();
-  blog.truncateArticles();
-  blog.populateFilters();
-  blog.filterArticles();
-  blog.tabNav();
-  blog.menuToggle();
-});
