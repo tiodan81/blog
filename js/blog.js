@@ -6,11 +6,11 @@ var blog = {
 
   init: function() {
     $.getJSON('js/blogArticles.json', function(data) {
-      if (localStorage.rawdata) {
+      if (localStorage.blogArticles) {
         console.log('Localstorage found.');
       } else {
         console.log('Localstorage not found.');
-        localStorage.setItem('rawdata', JSON.stringify(data));
+        localStorage.setItem('blogArticles', JSON.stringify(data));
       }
       blog.compareData(data);
     }).fail(function() {
@@ -20,7 +20,7 @@ var blog = {
 
   compareData: function(data) {
 
-     JSON.parse(localStorage.rawdata);
+    JSON.parse(localStorage.blogArticles);
   },
 
   getArticles: function(arr) {

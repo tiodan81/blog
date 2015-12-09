@@ -1,7 +1,10 @@
 var stats = {
 
+  data: [],
+
   pluck: function(property, arr, author) {
     author = author || null;
+    console.log(property + arr + author);
     if (!author) {
       return arr.map(function(e) {
         console.log(e[property]);
@@ -50,6 +53,7 @@ var stats = {
 
   getWords: function(articles, author) {
     author = author || null;
+    console.log(author + articles);
     var allBodies = this.pluck('body', articles, author);
     console.log(allBodies);
     var tempElem = document.createElement('div');
@@ -81,7 +85,7 @@ var stats = {
   displayStats: function(data) {
     $('#stats').append([
       '<h1>Fat Stats</h1>',
-      '<p>Total number of articles: ' + blog.articles.length + '</p>',
+      '<p>Total number of articles: ' + this.data.length + '</p>',
       '<p>Total number of authors: ' + this.uniqueAuthors(data).length + '</p>',
       this.totalWords(this.getWords(data)),
       '<p>Select an author to view average word length:</p>',
@@ -91,8 +95,8 @@ var stats = {
   },
 
   showErudition: function(e) {
-    console.log(e.target.value);
-    var words = stats.getWords(data, e.target.value);
+    console.log(e.target.value + stats.data);
+    var words = stats.getWords(this.data, e.target.value);
     console.log(words);
     words = words.split(' ');
     var lengths = stats.wordLength(words);
@@ -101,15 +105,23 @@ var stats = {
   },
 
   filterListen: function() {
-    $('select').on('change', data, this.showErudition);
+    $('select').on('change', this.showErudition);
     //$('select').trigger('change');
+  },
+
+  init: function(data, msg, xhr) {
+    if (xhr.status != 200) {
+      console.log('Data not found.' + msg);
+    } else {
+      stats.data = data;
+      stats.displayStats(stats.data);
+      stats.filterListen(stats.data);
+    }
   }
 };
 
-var data = blog.getArticles(blog.rawData);
-
 $(function() {
-  stats.displayStats(data);
-  stats.filterListen(data);
+  $.getJSON('js/blogArticles.json')
+    .done(stats.init);
   blog.menuToggle();
 });
