@@ -5,7 +5,7 @@ var blog = {
   categories: [],
 
   init: function() {
-    $.getJSON('js/rawdata.json', function(data) {
+    $.getJSON('js/blogArticles.json', function(data) {
       if (localStorage.rawdata) {
         console.log('Localstorage found.');
       } else {
