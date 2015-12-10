@@ -4,7 +4,7 @@ var Article = function(opts) {
   this.author = opts.author;
   this.authorUrl = opts.authorUrl;
   this.publishedOn = opts.publishedOn;
-  this.body = opts.body;
+  this.markdown = marked(opts.markdown);
   this.age = 0;
 };
 

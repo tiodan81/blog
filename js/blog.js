@@ -7,7 +7,7 @@ var blog = {
   init: function() {
     $.ajax({
       method: 'HEAD',
-      url: 'js/blogArticles.json',
+      url: 'js/hackerIpsum.json',
       success: function(data, msg, xhr) {
         var eTag = xhr.getResponseHeader('eTag');
         if (!localStorage.articlesEtag || localStorage.articlesEtag != eTag) {
@@ -27,7 +27,7 @@ var blog = {
   },
 
   getJSON: function() {
-    $.getJSON('js/blogArticles.json', function(data, msg, xhr) {
+    $.getJSON('js/hackerIpsum.json', function(data, msg, xhr) {
       var eTag = xhr.getResponseHeader('eTag');
       localStorage.setItem('articlesEtag', eTag);
       localStorage.setItem('blogArticles', JSON.stringify(data));
@@ -77,7 +77,7 @@ var blog = {
     var compiledTemplate = Handlebars.compile(templateScript);
     var compiledArticle = compiledTemplate(this);
     $('#articles').append(compiledArticle);
-    marked($('.body').html());
+    //marked($('.body').html());
     $('code').each(function(i, block) {
       hljs.highlightBlock(block);
     });
