@@ -6,11 +6,11 @@ var blog = {
 
   init: function() {
     $.ajax({
-      type: 'HEAD',
+      method: 'HEAD',
       url: 'js/blogArticles.json',
       success: function(data, msg, xhr) {
         var eTag = xhr.getResponseHeader('eTag');
-        if (typeof localStorage.articlesEtag == 'undefined' || localStorage.articlesEtag != eTag) {
+        if (!localStorage.articlesEtag || localStorage.articlesEtag != eTag) {
           console.log('Cache miss.');
           localStorage.articlesEtag = eTag;
           blog.articles = [];
