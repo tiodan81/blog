@@ -37,7 +37,6 @@ var blog = {
   },
 
   getArticles: function(arr) {
-    console.log(arr);
     for (var i = 0; i < arr.length; i++) {
       this.articles.push(new Article(arr[i]));
     }
@@ -48,6 +47,18 @@ var blog = {
   renderBlog: function() {
     blog.dateAndSort();
     blog.getFilters();
+    blog.publish();
+    blog.truncateArticles();
+    blog.populateFilters();
+  },
+
+  dateAndSort: function() {
+    this.articles.forEach(function(a) {
+      a.daysAgo();
+    });
+    this.articles = this.articles.sort(function(a, b) {
+      return a.age - b.age;
+    });
   },
 
   getFilters: function() {
@@ -58,15 +69,6 @@ var blog = {
       if (blog.categories.indexOf(a.category) === -1) {
         blog.categories.push(a.category);
       }
-    });
-  },
-
-  dateAndSort: function() {
-    this.articles.forEach(function(a) {
-      a.daysAgo();
-    });
-    this.articles = this.articles.sort(function(a, b) {
-      return a.age - b.age;
     });
   },
 
