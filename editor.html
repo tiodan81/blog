@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+    <link rel="stylesheet" href="css/style.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/default.min.css">
+    <title>Dan's Big Blog</title>
+  </head>
+  <body>
+    <header>
+      <h1 id="blogtitle">Dan's Big Blog</h1>
+      <nav class="main-nav">
+        <span class="icon-menu"></span>
+        <ul>
+          <li class="tab" data-content="about"><a href="#"><span class="icon-home">About</span></a></li>
+          <li class="tab" data-content="articles"><a href="#"><span class="icon-file-text2">Blog</span></a></li>
+          <li><a href="https://twitter.com/dpschwartz81"><span class="icon-twitter">Twitter</span></a></li>
+          <li><a href="https://github.com/tiodan81"><span class="icon-github">GitHub</span></a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section>
+        <form class="newPost">
+          <div class="formelem">
+            <input type="text" name="title" placeholder="Title" required />
+          </div>
+          <div class="formelem">
+            <input type="text" name="author" placeholder="Author" required />
+          </div>
+          <div class="formelem">
+            <input type="text" name="authorUrl" placeholder="Author URL" required />
+          </div>
+          <div class="formelem">
+            <input type="text" name="category" placeholder="Category" required />
+          </div>
+          <div class="formelem">
+              <textarea name="body" placeholder="Type article here..." required></textarea>
+          </div>
+          <label>Click to publish:</label>
+            <input type="checkbox" name="publish" value="publish" />
+        </form>
+        <p>Output: <span id="previewTarget"></span></p>
+      </section>
+      <section class="previewPost">
+        <article class="post">
+          <h2 class="title"></h2>
+          <p class="author"></p>
+          <p class="category"></p>
+          <div class="body"></div>
+        </article>
+      </section>
+      <section class="previewJSON"></section>
+      <button type="button" name="addNew">Add to DB</button>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="js/html5sql.js"></script>
+    <script type="text/javascript" src="js/webdb.js"></script>
+    <script type="text/javascript" src="js/post.js"></script>
+    <script type="text/javascript" src="js/article.js"></script>
+    <script type="text/javascript" src="js/blog.js"></script>
+  </body>
+</html>
