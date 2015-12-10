@@ -5,29 +5,49 @@ var blog = {
   categories: [],
 
   init: function() {
-    $.getJSON('js/blogArticles.json', function(data) {
-      if (localStorage.blogArticles) {
-        console.log('Localstorage found.');
-      } else {
-        console.log('Localstorage not found.');
-        localStorage.setItem('blogArticles', JSON.stringify(data));
+    $.ajax({
+      type: 'HEAD',
+      url: 'js/blogArticles.json',
+      success: function(data, msg, xhr) {
+        var eTag = xhr.getResponseHeader('eTag');
+        if (typeof localStorage.articlesEtag == 'undefined' || localStorage.articlesEtag != eTag) {
+          console.log('Cache miss.');
+          localStorage.articlesEtag = eTag;
+          blog.articles = [];
+          blog.getJSON();
+        } else {
+          console.log('Cache hit.');
+          var articles = JSON.parse(localStorage.blogArticles);
+          blog.getArticles(articles);
+        }
       }
-      blog.compareData(data);
     }).fail(function() {
       console.log('Epic fail. Ajax unsuccessful.');
     });
   },
 
-  compareData: function(data) {
-
-    JSON.parse(localStorage.blogArticles);
+  getJSON: function() {
+    $.getJSON('js/blogArticles.json', function(data, msg, xhr) {
+      var eTag = xhr.getResponseHeader('eTag');
+      localStorage.setItem('articlesEtag', eTag);
+      localStorage.setItem('blogArticles', JSON.stringify(data));
+      blog.getArticles(data);
+      console.log(data);
+    });
   },
 
   getArticles: function(arr) {
+    console.log(arr);
     for (var i = 0; i < arr.length; i++) {
       this.articles.push(new Article(arr[i]));
     }
-    return this.articles;
+    console.log(blog.articles);
+    blog.renderBlog();
+  },
+
+  renderBlog: function() {
+    blog.dateAndSort();
+    blog.getFilters();
   },
 
   getFilters: function() {
