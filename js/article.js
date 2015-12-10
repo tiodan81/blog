@@ -1,4 +1,12 @@
-var Article = function(opts) {
+// var Article = function(opts) {
+//   Object.keys(opts).forEach(function(e, index, keys) {
+//     this[e] = opts[e];
+//   },this);
+//
+//   this.markdown = opts.body || marked(this.markdown);
+// };
+
+var Article = function (opts) {
   this.title = opts.title;
   this.category = opts.category;
   this.author = opts.author;
@@ -14,4 +22,15 @@ Article.prototype.daysAgo = function() {
   var diff = today.getTime() - posted.getTime();
   diff = Math.floor(diff / 86400000);
   this.age = diff;
+};
+
+Article.prototype.insertRecord = function(callback) {
+  webDB.execute(
+    [
+      {
+        sql: 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?)',
+        data: [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.markdown]
+      }
+    ]
+  , callback);
 };

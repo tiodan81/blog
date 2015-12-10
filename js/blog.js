@@ -14,11 +14,12 @@ var blog = {
           console.log('Cache miss.');
           localStorage.articlesEtag = eTag;
           blog.articles = [];
-          blog.getJSON();
+          webDB.execute(
+            'DELETE FROM articles;'
+            ,blog.getJSON);
         } else {
           console.log('Cache hit.');
-          var articles = JSON.parse(localStorage.blogArticles);
-          blog.getArticles(articles);
+          blog.getDB();
         }
       }
     }).fail(function() {
@@ -27,20 +28,28 @@ var blog = {
   },
 
   getJSON: function() {
-    $.getJSON('js/hackerIpsum.json', function(data, msg, xhr) {
-      var eTag = xhr.getResponseHeader('eTag');
-      localStorage.setItem('articlesEtag', eTag);
-      localStorage.setItem('blogArticles', JSON.stringify(data));
-      blog.getArticles(data);
-      console.log(data);
-    });
+    $.getJSON('js/hackerIpsum.json', blog.updateFromJSON);
   },
 
-  getArticles: function(arr) {
-    for (var i = 0; i < arr.length; i++) {
-      this.articles.push(new Article(arr[i]));
-    }
-    console.log(blog.articles);
+  updateFromJSON: function (data) {
+    data.forEach(function(e) {
+      var article = new Article(e);
+      blog.articles.push(article);
+      article.insertRecord();
+    });
+    blog.renderBlog();
+  },
+
+  getDB: function () {
+    webDB.execute(
+      'SELECT * FROM articles ORDER BY publishedOn DESC;',    //should make sort unnecessary
+      blog.makeArticles);
+  },
+
+  makeArticles: function(arr) {
+    arr.forEach(function(e) {
+      blog.articles.push(new Article(e));
+    });
     blog.renderBlog();
   },
 
@@ -77,7 +86,6 @@ var blog = {
     var compiledTemplate = Handlebars.compile(templateScript);
     var compiledArticle = compiledTemplate(this);
     $('#articles').append(compiledArticle);
-    //marked($('.body').html());
     $('code').each(function(i, block) {
       hljs.highlightBlock(block);
     });
