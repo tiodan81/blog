@@ -54,38 +54,16 @@ var blog = {
   },
 
   renderBlog: function() {
-    blog.dateAndSort();
-    blog.getFilters();
     blog.publish();
     blog.truncateArticles();
+    blog.getFilters();
     blog.populateFilters();
   },
 
-  dateAndSort: function() {
-    this.articles.forEach(function(a) {
-      a.daysAgo();
-    });
-    this.articles = this.articles.sort(function(a, b) {
-      return a.age - b.age;
-    });
-  },
-
-  getFilters: function() {
-    this.articles.forEach(function(a) {
-      if (blog.authors.indexOf(a.author) === -1) {
-        blog.authors.push(a.author);
-      }
-      if (blog.categories.indexOf(a.category) === -1) {
-        blog.categories.push(a.category);
-      }
-    });
-  },
-
   publish: function() {
-    var templateScript = $('#template').html();
-    var compiledTemplate = Handlebars.compile(templateScript);
-    var compiledArticle = compiledTemplate(this);
-    $('#articles').append(compiledArticle);
+    blog.articles.forEach(function(e) {
+      $('#articles').append(e.toHTML());
+    });
     $('code').each(function(i, block) {
       hljs.highlightBlock(block);
     });
@@ -97,6 +75,17 @@ var blog = {
       e.preventDefault();
       $(this).parent().find('p').fadeIn();
       $(this).hide();
+    });
+  },
+
+  getFilters: function() {
+    this.articles.forEach(function(a) {
+      if (blog.authors.indexOf(a.author) === -1) {
+        blog.authors.push(a.author);
+      }
+      if (blog.categories.indexOf(a.category) === -1) {
+        blog.categories.push(a.category);
+      }
     });
   },
 
@@ -112,6 +101,12 @@ var blog = {
       $catFilter.removeAttr('id');
       $catFilter.text(a);
       $('select[name="filterCategory"]').append($catFilter);
+    });
+  },
+
+  getTemplate: function() {
+    $.get('templates/article.handlebars', function(data, msg, xhr) {
+      Article.prototype.template = Handlebars.compile(data);
     });
   },
 

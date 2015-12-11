@@ -10,12 +10,9 @@ var Article = function (opts) {
 
 Article.prototype.template = '';
 
-Article.prototype.daysAgo = function() {
-  var today = new Date();
-  var posted = new Date(this.publishedOn);
-  var diff = today.getTime() - posted.getTime();
-  diff = Math.floor(diff / 86400000);
-  this.age = diff;
+Article.prototype.toHTML = function() {
+  this.age = Math.floor((new Date() - new Date(this.publishedOn)) / 86400000);
+  return this.template(this);
 };
 
 Article.prototype.insertRecord = function(callback) {
