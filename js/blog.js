@@ -64,6 +64,10 @@ var blog = {
     blog.articles.forEach(function(e) {
       $('#articles').append(e.toHTML());
     });
+    blog.highlight();
+  },
+
+  highlight: function() {
     $('code').each(function(i, block) {
       hljs.highlightBlock(block);
     });
@@ -153,6 +157,51 @@ var blog = {
   menuToggle: function() {
     $('.icon-menu').on('click', function() {
       $('ul').slideToggle('slow');
+    });
+  },
+
+  watchEditForm: function() {
+    $('.newPost > div > *').on('focusout', blog.buildPreview);
+  },
+
+  buildPreview: function() {
+    console.log($('textarea[name="body"]').val());
+    var preview = blog.previewConstruct();
+    console.log(preview);
+    $('#previewPost').html(preview.toHTML());
+    blog.highlight();
+  },
+
+  previewConstruct: function() {
+    return new Article({
+      title: $('input[name="title"]').val(),
+      author: $('input[name="author"]').val(),
+      authorUrl: $('input[name="authorUrl"]').val(),
+      category: $('input[name="category"]').val(),
+      markdown: $('textarea[name="body"]').val(),
+      publishedOn: new Date().toISOString().slice(0,10)
+    });
+  },
+
+  prepPostExport: function() {
+    $('input[name="publish"]').on('click', function () {
+      if ($(this).is(':checked')) {
+        var postObject = {};
+        var elements = $('.newPost > div > *');
+        for (var i = 0; i < elements.length; i++) {
+          if (elements[i].name == 'body') {
+            postObject[elements[i].name] = marked(elements[i].value);
+          } else {
+            postObject[elements[i].name] = elements[i].value;
+          }
+        }
+        var date = new Date().toISOString().slice(0,10);
+        postObject.publishedOn = date;
+        console.log(postObject);
+        $('#previewTarget').text(JSON.stringify(postObject));
+      } else {
+        $('#previewTarget').text('');
+      }
     });
   }
 };
