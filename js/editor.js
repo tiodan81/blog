@@ -22,15 +22,15 @@ $('input[name="publish"]').on('click', function () {
         postObject[elements[i].name] = elements[i].value;
       }
     }
-    var date = new Date();
-    var y = date.getFullYear();
-    var m = date.getMonth()+1;
-    var d = date.getDate();
-    date = y+'-'+m+'-'+d;
+    var date = new Date().toISOString().slice(0,10);
     postObject.publishedOn = date;
     console.log(postObject);
     $('#previewTarget').text(JSON.stringify(postObject));
   } else {
     $('#previewTarget').text('');
   }
+});
+
+$(function() {
+  webDB.init();
 });

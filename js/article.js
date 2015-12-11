@@ -1,11 +1,3 @@
-// var Article = function(opts) {
-//   Object.keys(opts).forEach(function(e, index, keys) {
-//     this[e] = opts[e];
-//   },this);
-//
-//   this.markdown = opts.body || marked(this.markdown);
-// };
-
 var Article = function (opts) {
   this.title = opts.title;
   this.category = opts.category;
@@ -15,6 +7,8 @@ var Article = function (opts) {
   this.markdown = marked(opts.markdown);
   this.age = 0;
 };
+
+Article.prototype.template = '';
 
 Article.prototype.daysAgo = function() {
   var today = new Date();
