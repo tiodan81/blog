@@ -1,4 +1,5 @@
 var Article = function (opts) {
+  //this.id = opts.id;
   this.title = opts.title;
   this.category = opts.category;
   this.author = opts.author;
