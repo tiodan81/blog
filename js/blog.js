@@ -58,6 +58,9 @@ var blog = {
     blog.truncateArticles();
     blog.getFilters();
     blog.populateFilters();
+    if (!blog.isAdmin()) {
+      $('.editable').hide();
+    }
   },
 
   publish: function() {
@@ -160,15 +163,23 @@ var blog = {
     });
   },
 
+  isAdmin: function() {
+    var params = window.location.search.substring(1).split('=');
+    if (params[0] === 'admin' && params[1] === 'true') {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
   watchEditForm: function() {
     $('.newPost > div > *').on('focusout', blog.buildPreview);
   },
 
   buildPreview: function() {
-    console.log($('textarea[name="body"]').val());
     var preview = blog.previewConstruct();
-    console.log(preview);
     $('#previewPost').html(preview.toHTML());
+    $('.read-on').hide();
     blog.highlight();
   },
 
@@ -184,24 +195,36 @@ var blog = {
   },
 
   prepPostExport: function() {
-    $('input[name="publish"]').on('click', function () {
-      if ($(this).is(':checked')) {
-        var postObject = {};
-        var elements = $('.newPost > div > *');
-        for (var i = 0; i < elements.length; i++) {
-          if (elements[i].name == 'body') {
-            postObject[elements[i].name] = marked(elements[i].value);
-          } else {
-            postObject[elements[i].name] = elements[i].value;
-          }
-        }
-        var date = new Date().toISOString().slice(0,10);
-        postObject.publishedOn = date;
-        console.log(postObject);
-        $('#previewTarget').text(JSON.stringify(postObject));
-      } else {
-        $('#previewTarget').text('');
-      }
+    $('#publishcheckbox:checked').on('click', function () {
+      console.log('checked');
+      // if ($(this).is(':checked')) {
+      //   var postObject = {};
+      //   var elements = $('.newPost > div > *');
+      //   for (var i = 0; i < elements.length; i++) {
+      //     if (elements[i].name == 'body') {
+      //       postObject[elements[i].name] = marked(elements[i].value);
+      //     } else {
+      //       postObject[elements[i].name] = elements[i].value;
+      //     }
+      //   }
+      //   var today = new Date().toISOString().slice(0,10);
+      //   postObject.publishedOn = today;
+      //   console.log(postObject);
+      //   $('#previewTarget').text(JSON.stringify(postObject));
+      // } else {
+      //   $('#previewTarget').text('');
+      // }
+    });
+  },
+
+  updateJSON: function() {
+    var JSONoutput = [];
+  },
+
+  handleNewArticle: function() {
+    $('#addButton').on('click', function() {
+      var newArticle = blog.previewConstruct();
+      newArticle.insertRecord(blog.updateJSON);
     });
   }
 };

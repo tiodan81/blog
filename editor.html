@@ -40,15 +40,15 @@
           <div class="formelem">
               <textarea name="body" placeholder="Type article here..." required></textarea>
           </div>
-          <label>Click to publish:</label>
-            <input type="checkbox" name="publish" value="publish" />
+          <label>Click to save:</label>
+            <input type="checkbox" id="publishcheckbox" />
         </form>
         <p>Output: <span id="previewTarget"></span></p>
       </section>
       <section id="previewPost">
       </section>
-      <section class="previewJSON"></section>
-      <button id="type="button" name="addNew">Add to DB</button>
+      <button id="addButton" type="button" name="addNew">Add to DB</button>
+      <section id="previewJSON"></section>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>

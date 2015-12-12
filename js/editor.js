@@ -3,6 +3,7 @@ $(function() {
   blog.getTemplate();
   blog.watchEditForm();
   blog.prepPostExport();
+  blog.handleNewArticle();
 });
 
 
