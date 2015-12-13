@@ -1,8 +1,7 @@
-<article class="post" data-author="{{author}}" data-category="{{category}}">
+<article class="post" data-author="{{author}}" data-category="{{category}}" data-id="{{id}}">
   <h1 class="title">{{title}}</h1>
-  <p class="editable">Edit</p>
+  <a href="editor.html?id={{id}}" <p class="editable">Edit</p></a>
   <p class="byline">by <a href="{{authorUrl}}">{{author}}</a> published {{age}} days ago.</p>
-  <p class="category">{{category}}</p>
   <div class="body">{{{markdown}}}</div>
   <a href="#" class="read-on">Read on</a>
 </article>

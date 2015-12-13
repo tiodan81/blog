@@ -19,7 +19,7 @@ var blog = {
             ,blog.getJSON);
         } else {
           console.log('Cache hit.');
-          blog.getDB();
+          blog.getDB(blog.makeArticles);
         }
       }
     }).fail(function() {
@@ -40,17 +40,20 @@ var blog = {
     blog.renderBlog();
   },
 
-  getDB: function () {
+  getDB: function (callback) {
+    callback = callback || function() {};
     webDB.execute(
-      'SELECT * FROM articles ORDER BY publishedOn DESC;',    //should make sort unnecessary
-      blog.makeArticles);
+      'SELECT * FROM articles ORDER BY publishedOn DESC;',
+      callback);
   },
 
   makeArticles: function(arr) {
     arr.forEach(function(e) {
       blog.articles.push(new Article(e));
     });
-    blog.renderBlog();
+    if ($('#articles').length) {
+      blog.renderBlog();
+    }
   },
 
   renderBlog: function() {
@@ -165,14 +168,14 @@ var blog = {
 
   isAdmin: function() {
     var params = window.location.search.substring(1).split('=');
-    if (params[0] === 'admin' && params[1] === 'true') {
+    if (params[1] === 'true') {
       return true;
     } else {
       return false;
     }
   },
 
-  watchEditForm: function() {
+  watchPostForm: function() {
     $('.newPost > div > *').on('focusout', blog.buildPreview);
   },
 
@@ -185,11 +188,11 @@ var blog = {
 
   previewConstruct: function() {
     return new Article({
-      title: $('input[name="title"]').val(),
-      author: $('input[name="author"]').val(),
-      authorUrl: $('input[name="authorUrl"]').val(),
-      category: $('input[name="category"]').val(),
-      markdown: $('textarea[name="body"]').val(),
+      title: $('#edit-title').val(),
+      author: $('#edit-author').val(),
+      authorUrl: $('#edit-authorUrl').val(),
+      category: $('#edit-category').val(),
+      markdown: $('#edit-markdown').val(),
       publishedOn: new Date().toISOString().slice(0,10)
     });
   },
@@ -217,9 +220,27 @@ var blog = {
     });
   },
 
-  updateJSON: function() {
-    var JSONoutput = [];
+  initEditor: function() {
+    var id = window.location.search.substring(1).split('=')[1];
+    if (id) {
+      webDB.execute(
+        'SELECT * FROM articles WHERE id='+id
+        ,blog.populateEditor);
+    }
   },
+
+  populateEditor: function(article) {
+    var artToEdit = article[0];
+    $('#edit-title').val(artToEdit.title);
+    $('#edit-author').val(artToEdit.author);
+    $('#edit-authorUrl').val(artToEdit.authorUrl);
+    $('#edit-category').val(artToEdit.category);
+    $('#edit-markdown').val(artToEdit.markdown);
+  },
+  // updateJSON: function() {
+  //   var JSONoutput = '';
+  //   blog.
+  // },
 
   handleNewArticle: function() {
     $('#addButton').on('click', function() {
