@@ -87,10 +87,12 @@ textarea {
 
 button {
   float: left;
-  margin-right: 1em;
-  margin-bottom: 1em;
+  margin: 1em 1em 1em 0em;
 }
 
+#previewPost {
+  clear: both;
+}
 
 /**** MODULE RULES ****/
 
