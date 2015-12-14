@@ -35,3 +35,9 @@ Article.prototype.updateRecord = function(callback) {
     }
   ], callback);
 };
+
+Article.prototype.deleteRecord = function(callback) {
+  webDB.execute(
+    'DELETE FROM articles WHERE id='+this.id
+    , callback);
+};

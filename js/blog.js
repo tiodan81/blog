@@ -262,12 +262,17 @@ var blog = {
       updated.id = id;
       updated.updateRecord(blog.updateJSON);
       blog.clearEditor();
-      //revert to new article mode or go back to blog?
     });
   },
 
   handleDeleteButton: function() {
-
+    $('#deleteButton').on('click', function() {
+      var id = $(this).data('article-id');
+      var toDelete = blog.constructArticle();
+      toDelete.id = id;
+      toDelete.deleteRecord(blog.updateJSON);
+      blog.clearEditor();
+    });
   },
 
   clearEditor: function() {
