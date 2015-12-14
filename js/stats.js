@@ -1,7 +1,5 @@
 var stats = {
 
-  data: [],
-
   pluck: function(property, arr) {
     return arr.map(function(e) {
       return e[property];
@@ -79,6 +77,7 @@ var stats = {
       '<p>Total number of articles: ' + data.length + '</p>',
       '<p>Total number of authors: ' + this.uniqueAuthors(data).length + '</p>',
       '<p>Total number of words: ' + this.totalWords(data).length + '</p>',
+      '<p>Average word length (whole site): '
       '<p>Select an author to view average word length:</p>',
       this.makeAuthorFilter(this.uniqueAuthors(data)),
       //showErudition for all authors
