@@ -180,13 +180,13 @@ var blog = {
   },
 
   buildPreview: function() {
-    var preview = blog.previewConstruct();
+    var preview = blog.constructArticle();
     $('#previewPost').html(preview.toHTML());
     $('.read-on').hide();
     blog.highlight();
   },
 
-  previewConstruct: function() {
+  constructArticle: function() {
     return new Article({
       title: $('#edit-title').val(),
       author: $('#edit-author').val(),
@@ -222,6 +222,11 @@ var blog = {
 
   initEditor: function() {
     var id = window.location.search.substring(1).split('=')[1];
+    $('#updateButton').show().data('article-id', id);
+    $('#deleteButton').show().data('article-id', id);
+    blog.handleUpdateButton();
+    blog.handleDeleteButton();
+    $('#addButton').hide();
     if (id) {
       webDB.execute(
         'SELECT * FROM articles WHERE id='+id
@@ -242,10 +247,35 @@ var blog = {
   //   blog.
   // },
 
-  handleNewArticle: function() {
+  handleNewButton: function() {
     $('#addButton').on('click', function() {
-      var newArticle = blog.previewConstruct();
+      var newArticle = blog.constructArticle();
       newArticle.insertRecord(blog.updateJSON);
+      blog.clearEditor();
     });
+  },
+
+  handleUpdateButton: function() {
+    $('#updateButton').on('click', function() {
+      var id = $(this).data('article-id');
+      var updated = blog.constructArticle();
+      updated.id = id;
+      updated.updateRecord(blog.updateJSON);
+      blog.clearEditor();
+      //revert to new article mode or go back to blog?
+    });
+  },
+
+  handleDeleteButton: function() {
+
+  },
+
+  clearEditor: function() {
+    $('input').val('');
+    $('textarea').val('');
+    $('#publishcheckbox').attr('checked', false);
+    $('#addButton').show();
+    $('#updateButton').hide();
+    $('#deleteButton').hide();
   }
 };

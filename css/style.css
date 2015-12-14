@@ -85,6 +85,12 @@ textarea {
   float: right;
 }
 
+button {
+  float: left;
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+
 
 /**** MODULE RULES ****/
 
@@ -137,4 +143,8 @@ li {
 
 a:hover {
   color: #550D4F;
+}
+
+#updateButton, #deleteButton {
+  display: none;
 }

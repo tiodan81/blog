@@ -26,3 +26,12 @@ Article.prototype.insertRecord = function(callback) {
     ]
   , callback);
 };
+
+Article.prototype.updateRecord = function(callback) {
+  webDB.execute([
+    {
+      sql: 'UPDATE articles SET title=?, category=?, author=?, authorUrl=?, publishedOn=?, markdown=? WHERE id=?',
+      data: [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.markdown, this.id]
+    }
+  ], callback);
+};

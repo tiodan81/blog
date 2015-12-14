@@ -4,5 +4,5 @@ $(function() {
   blog.initEditor();
   blog.watchPostForm();
   blog.prepPostExport();
-  blog.handleNewArticle();
+  blog.handleNewButton();
 });
