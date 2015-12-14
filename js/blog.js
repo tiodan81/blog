@@ -37,7 +37,11 @@ var blog = {
       blog.articles.push(article);
       article.insertRecord();
     });
-    blog.renderBlog();
+    if ($('#articles').length) {
+      blog.renderBlog();
+    } else if ($('#stats').length) {
+      stats.displayStats(blog.articles);
+    }
   },
 
   getDB: function (callback) {
@@ -53,6 +57,8 @@ var blog = {
     });
     if ($('#articles').length) {
       blog.renderBlog();
+    } else if ($('#stats').length) {
+      stats.displayStats(blog.articles);
     }
   },
 
