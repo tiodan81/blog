@@ -19,7 +19,7 @@ var blog = {
             ,blog.getJSON);
         } else {
           console.log('Cache hit.');
-          blog.getDB(blog.makeArticles);
+          blog.getDB();
         }
       }
     }).fail(function() {
@@ -48,18 +48,18 @@ var blog = {
     callback = callback || function() {};
     webDB.execute(
       'SELECT * FROM articles ORDER BY publishedOn DESC;',
-      callback);
-  },
-
-  makeArticles: function(arr) {
-    arr.forEach(function(e) {
-      blog.articles.push(new Article(e));
-    });
-    if ($('#articles').length) {
-      blog.renderBlog();
-    } else if ($('#stats').length) {
-      stats.displayStats(blog.articles);
-    }
+      function(arr) {
+        arr.forEach(function(e) {
+          blog.articles.push(new Article(e));
+        });
+        if ($('#articles').length) {
+          blog.renderBlog();
+        } else if ($('#stats').length) {
+          stats.displayStats(blog.articles);
+        }
+        callback();
+      }
+    );
   },
 
   renderBlog: function() {
@@ -228,40 +228,17 @@ var blog = {
 
   remakeFromDB: function() {
     blog.articles = [];
-    blog.getDB(blog.makeArticles);
-    console.log(blog.articles);
-    blog.updateJSON();
+    blog.getDB(blog.updateJSON);
   },
 
   updateJSON: function() {
+    console.log(blog.articles);
     var JSONoutput = '';
     blog.articles.forEach(function(art) {
-      JSONoutput += JSON.stringify(art) + ', ';
+      JSONoutput += JSON.stringify(art) + ', \n';
     });
     $('#previewJSON').text('[' + JSONoutput + ']');
   },
-
-  //$('#publishcheckbox:checked').on('click', function () {
-    //console.log('checked');
-    // if ($(this).is(':checked')) {
-    //   var postObject = {};
-    //   var elements = $('.newPost > div > *');
-    //   for (var i = 0; i < elements.length; i++) {
-    //     if (elements[i].name == 'body') {
-    //       postObject[elements[i].name] = marked(elements[i].value);
-    //     } else {
-    //       postObject[elements[i].name] = elements[i].value;
-    //     }
-    //   }
-    //   var today = new Date().toISOString().slice(0,10);
-    //   postObject.publishedOn = today;
-    //   console.log(postObject);
-    //   $('#previewTarget').text(JSON.stringify(postObject));
-    // } else {
-    //   $('#previewTarget').text('');
-    // }
-  //});
-
 
   handleNewButton: function() {
     $('#addButton').on('click', function() {
