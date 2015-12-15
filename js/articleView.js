@@ -7,6 +7,7 @@ articleView.index = function() {
     Article.allArticles.forEach(function(e) {
       $('#articles').append(articleView.toHTML(e));
     });
+    //call event listeners, teasers, etc
   };
 
   if (articleView.template) {
