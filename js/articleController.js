@@ -1,7 +1,6 @@
 articleController = {};
 
 articleController.initIndex = function() {
-  console.log('router recognized');
   $.ajax({
     method: 'HEAD',
     url: 'js/hackerIpsum.json',
