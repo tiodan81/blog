@@ -9,5 +9,6 @@ repos.requestAll = function(callback) {
     headers: {Authorization: 'token ' + token}
   }).done(function(data) {
     console.log(data);
-  });
+    repos.all = data;
+  }).done(callback);
 };

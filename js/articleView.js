@@ -24,8 +24,3 @@ articleView.toHTML = function(article) {
   article.age = Math.floor((new Date() - new Date(article.publishedOn)) / 86400000);
   return articleView.template(article);
 };
-
-articleView.about = function() {
-  $('#articles').hide();
-  $('#about').show();
-};
