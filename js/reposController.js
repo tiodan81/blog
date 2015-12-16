@@ -1,5 +1,5 @@
 var reposController = {};
 
 reposController.index = function() {
-  repos.requestAll(aboutView.index);
+  repos.requestRepos(aboutView.index);
 };
