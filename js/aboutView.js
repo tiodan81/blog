@@ -23,11 +23,8 @@ aboutView.renderRepos = function(repos) {
 };
 
 aboutView.filter = function(callback) {
-  var filtered = [];
-  repos.all.forEach(function(e) {
-    if (!e.fork) {
-      filtered.push(e);
-    }
+  var filtered = repos.all.filter(function(repo) {
+    return !repo.fork;
   });
   aboutView.renderRepos(filtered);
 };
