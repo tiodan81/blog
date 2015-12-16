@@ -5,8 +5,7 @@ repos.all = [];
 repos.requestRepos = function(callback) {
   $.ajax({
     type: 'GET',
-    url:'https://api.github.com/users/tiodan81/repos?sort=updated',
-    headers: {Authorization: 'token ' + token}
+    url:'github/users/tiodan81/repos?sort=updated',
   }).done(function(data) {
     repos.all = data;
   }).done(callback);
