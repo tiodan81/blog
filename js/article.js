@@ -9,12 +9,7 @@ var Article = function (opts) {
   this.age = 0;
 };
 
-Article.prototype.template = '';
-
-Article.prototype.toHTML = function() {
-  this.age = Math.floor((new Date() - new Date(this.publishedOn)) / 86400000);
-  return this.template(this);
-};
+Article.allArticles = [];
 
 Article.prototype.insertRecord = function(callback) {
   webDB.execute(
@@ -37,7 +32,38 @@ Article.prototype.updateRecord = function(callback) {
 };
 
 Article.prototype.deleteRecord = function(callback) {
+  webDB.execute([
+    {
+      sql: 'DELETE FROM articles WHERE id=?',
+      data: [this.id]
+    }
+  ], callback);
+};
+
+Article.requestJSON = function (next, callback) {
+  $.getJSON('/js/hackerIpsum.json', function (data) {
+    data.forEach(function(e) {
+      var article = new Article(e);
+      Article.allArticles.push(article);
+      article.insertRecord();
+    });
+  });
+  callback();
+};
+
+Article.getDB = function (callback) {
+  callback = callback || function() {};
   webDB.execute(
-    'DELETE FROM articles WHERE id='+this.id
-    , callback);
+    'SELECT * FROM articles ORDER BY publishedOn DESC;',
+    function(rows) {
+      if (rows.length === 0) {
+        Article.requestJSON(Article.getDB, callback);
+      } else {
+        rows.forEach(function(e) {
+          Article.allArticles.push(new Article(e));
+        });
+        callback();
+      }
+    }
+  );
 };

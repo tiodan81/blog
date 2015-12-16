@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
-    <link rel="stylesheet" href="css/style.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/default.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/css/icons.css">
     <title>Dan's Big Blog</title>
   </head>
   <body>
@@ -14,11 +14,11 @@
       <h1 id="blogtitle">Dan's Big Blog</h1>
       <nav class="main-nav">
         <span class="icon-menu"></span>
-        <ul>
-          <li class="tab" data-content="about"><a href="#"><span class="icon-home">About</span></a></li>
-          <li class="tab" data-content="articles"><a href="#"><span class="icon-file-text2">Blog</span></a></li>
-          <li><a href="https://twitter.com/dpschwartz81"><span class="icon-twitter">Twitter</span></a></li>
-          <li><a href="https://github.com/tiodan81"><span class="icon-github">GitHub</span></a></li>
+        <ul class="nav-list">
+          <li class="tab nav-item" data-content="about"><a href="/about"><span class="icon-home">About</span></a></li>
+          <li class="tab nav-item" data-content="articles"><a href="/"><span class="icon-file-text2">Blog</span></a></li>
+          <li class="nav-item"><a href="https://twitter.com/dpschwartz81"><span class="icon-twitter">Twitter</span></a></li>
+          <li class="nav-item"><a href="https://github.com/tiodan81"><span class="icon-github">GitHub</span></a></li>
         </ul>
         <form>
           <select name="filterAuthor">
@@ -38,17 +38,32 @@
         <p>
           My name is Dan. I've been blogging for more than a day now. I'm of medium height, I wear glasses, and love nachos.
         </p>
+        <h1>GitHub repos</h1>
+        <p>Click a repo to learn more.</p>
+        <ul id="repos"></ul>
       </section>
     </main>
     <footer></footer>
+    <!-- VENDOR SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-    <script type="text/javascript" src="js/vendor/jquery-2.1.4.js"></script>
-    <script type="text/javascript" src="js/vendor/html5sql.js"></script>
-    <script type="text/javascript" src="js/vendor/webdb.js"></script>
-    <script type="text/javascript" src="js/article.js"></script>
-    <script type="text/javascript" src="js/blog.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script type="text/javascript" src="/js/vendor/html5sql.js"></script>
+    <script type="text/javascript" src="/js/vendor/webdb.js"></script>
+    <script type="text/javascript" src="/js/vendor/page.js"></script>
+    <!-- TOKEN -->
+    <script type="text/javascript" src="/js/githubtoken.js"></script>
+    <!-- MODEL SCRIPTS -->
+    <script type="text/javascript" src="/js/article.js"></script>
+    <script type="text/javascript" src="/js/repos.js"></script>
+    <!-- CONTROLLER SCRIPTS -->
+    <script type="text/javascript" src="/js/articleController.js"></script>
+    <script type="text/javascript" src="/js/reposController.js"></script>
+    <!-- VIEW SCRIPTS -->
+    <script type="text/javascript" src="/js/articleView.js"></script>
+    <script type="text/javascript" src="/js/aboutView.js"></script>
+    <!-- ROUTER SCRIPT -->
+    <script type="text/javascript" src="/js/router.js"></script>
   </body>
 </html>
