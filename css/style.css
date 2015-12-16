@@ -17,16 +17,6 @@ main {
   margin-bottom: 1em;
 }
 
-ul {
-  padding: 0px;
-}
-
-li {
-  font-size: 1.2em;
-  margin-right: 0.4em;
-  margin-top: 0.5em;
-}
-
 a {
   text-decoration: none;
   color: #74276D;
@@ -101,6 +91,18 @@ button {
   font-size: 3em;
 }
 
+.nav-list {
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+.nav-item {
+  padding: 0px;
+  font-size: 1.2em;
+  margin-right: 0.4em;
+  margin-top: 0.5em;
+}
+
 .tab-content {
   display: none;
 }
@@ -114,6 +116,21 @@ button {
 
 li {
   list-style-type: none;
+}
+
+.repotemplate {
+  display: block;
+  margin-bottom: 0.5em;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.repodetails {
+  display: none;
+}
+
+.repodetails li {
+  font-weight: normal;
 }
 
 /**** THEME RULES ****/

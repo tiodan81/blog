@@ -7,6 +7,7 @@ articleView.index = function() {
     Article.allArticles.forEach(function(e) {
       $('#articles').append(articleView.toHTML(e));
     });
+    //call event listeners, teasers, etc
   };
 
   if (articleView.template) {
@@ -22,9 +23,4 @@ articleView.index = function() {
 articleView.toHTML = function(article) {
   article.age = Math.floor((new Date() - new Date(article.publishedOn)) / 86400000);
   return articleView.template(article);
-};
-
-articleView.about = function() {
-  $('#articles').hide();
-  $('#about').show();
 };

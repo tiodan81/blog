@@ -3,7 +3,7 @@ articleController = {};
 articleController.initIndex = function() {
   $.ajax({
     method: 'HEAD',
-    url: 'js/hackerIpsum.json',
+    url: '/js/hackerIpsum.json',
     success: function(data, msg, xhr) {
       var eTag = xhr.getResponseHeader('eTag');
       if (!localStorage.articlesEtag || localStorage.articlesEtag != eTag) {

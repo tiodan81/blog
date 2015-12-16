@@ -41,7 +41,7 @@ Article.prototype.deleteRecord = function(callback) {
 };
 
 Article.requestJSON = function (next, callback) {
-  $.getJSON('js/hackerIpsum.json', function (data) {
+  $.getJSON('/js/hackerIpsum.json', function (data) {
     data.forEach(function(e) {
       var article = new Article(e);
       Article.allArticles.push(article);
@@ -59,7 +59,6 @@ Article.getDB = function (callback) {
       if (rows.length === 0) {
         Article.requestJSON(Article.getDB, callback);
       } else {
-        console.log('i am running');
         rows.forEach(function(e) {
           Article.allArticles.push(new Article(e));
         });
