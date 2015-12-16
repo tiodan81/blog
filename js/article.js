@@ -40,15 +40,15 @@ Article.prototype.deleteRecord = function(callback) {
   ], callback);
 };
 
-Article.requestJSON = function (next, callback) {
+Article.requestJSON = function (callback) {
   $.getJSON('/js/hackerIpsum.json', function (data) {
     data.forEach(function(e) {
       var article = new Article(e);
       Article.allArticles.push(article);
       article.insertRecord();
     });
+    callback();
   });
-  callback();
 };
 
 Article.getDB = function (callback) {
