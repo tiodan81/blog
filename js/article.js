@@ -10,6 +10,8 @@ var Article = function (opts) {
 };
 
 Article.allArticles = [];
+Article.authors = [];
+Article.categories = [];
 
 Article.prototype.insertRecord = function(callback) {
   webDB.execute(
