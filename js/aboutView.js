@@ -1,6 +1,8 @@
 var aboutView = {};
 
 aboutView.index = function() {
+  $('#authorCategory').prop('selectedIndex', 0);
+  $('#filterCategory').prop('selectedIndex', 0);
   $('#repos').empty();
   $('#articles').hide();
   $('#about').show();

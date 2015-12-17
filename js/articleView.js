@@ -77,7 +77,6 @@ articleView.populateFilters = function() {
 };
 
 articleView.filterArticles = function() {
-  console.log('FA');
   $('#filterAuthor').on('change', function() {
     $selection = this.value;
     $('#filterCategory').prop('selectedIndex', 0);
