@@ -56,7 +56,6 @@ Article.findByCategory = function(category, callback) {
 };
 
 Article.findByAuthor = function(author, callback) {
-  console.log(author);
   webDB.execute(
     [
       {

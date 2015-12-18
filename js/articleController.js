@@ -33,16 +33,13 @@ articleController.category = function(ctx, next) {
 
 articleController.author = function(ctx, next) {
   var authorData = function(data) {
-    console.log(data);
     ctx.articles = data;
     next();
   };
-  console.log(ctx);
   Article.findByAuthor(ctx.params.author, authorData);
 };
 
 articleController.show = function(ctx, next) {
-  console.log(ctx.articles);
   articleView.showFiltered(ctx.articles);
 };
 

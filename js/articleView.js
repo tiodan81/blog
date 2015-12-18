@@ -5,7 +5,6 @@ articleView.index = function() {
 };
 
 articleView.render = function(articles) {
-  console.log(articles);
   $('#about').hide();
   $('#articles').empty().show();
   articles.forEach(function(e) {
@@ -20,7 +19,6 @@ articleView.toHTML = function(article) {
 };
 
 articleView.showFiltered = function(articles) {
-  console.log(articles);
   articleView.render(articles);
 };
 
@@ -77,7 +75,6 @@ articleView.populateFilters = function() {
 articleView.filterArticles = function() {
   $('#filterAuthor').on('change', function() {
     $selection = util.slug(this.value);
-    console.log($selection);
     $('#filterCategory').prop('selectedIndex', 0);
     page('/author/' + $selection);
   });
