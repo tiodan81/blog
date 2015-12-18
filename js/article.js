@@ -3,6 +3,7 @@ var Article = function (opts) {
   this.title = opts.title;
   this.category = opts.category;
   this.author = opts.author;
+  this.authorSlug = util.slug(opts.author);
   this.authorUrl = opts.authorUrl;
   this.publishedOn = opts.publishedOn;
   this.markdown = marked(opts.markdown);
@@ -17,8 +18,8 @@ Article.prototype.insertRecord = function(callback) {
   webDB.execute(
     [
       {
-        sql: 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?)',
-        data: [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.markdown]
+        sql: 'INSERT INTO articles (title, category, author, authorSlug, authorUrl, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        data: [this.title, this.category, this.author, this.authorSlug, this.authorUrl, this.publishedOn, this.markdown]
       }
     ]
   , callback);
@@ -27,8 +28,8 @@ Article.prototype.insertRecord = function(callback) {
 Article.prototype.updateRecord = function(callback) {
   webDB.execute([
     {
-      sql: 'UPDATE articles SET title=?, category=?, author=?, authorUrl=?, publishedOn=?, markdown=? WHERE id=?',
-      data: [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.markdown, this.id]
+      sql: 'UPDATE articles SET title=?, category=?, author=?, authorSlug=?, authorUrl=?, publishedOn=?, markdown=? WHERE id=?',
+      data: [this.title, this.category, this.author, this.authorSlug, this.authorUrl, this.publishedOn, this.markdown, this.id]
     }
   ], callback);
 };
@@ -46,7 +47,7 @@ Article.findByCategory = function(category, callback) {
   webDB.execute(
     [
       {
-        'sql': 'SELECT * FROM articles WHERE category=?',
+        'sql': 'SELECT * FROM articles WHERE category=? ORDER BY publishedOn DESC',
         'data': [category]
       }
     ],
@@ -59,7 +60,7 @@ Article.findByAuthor = function(author, callback) {
   webDB.execute(
     [
       {
-        'sql': 'SELECT * FROM articles WHERE author=?',
+        'sql': 'SELECT * FROM articles WHERE authorSlug=? ORDER BY publishedOn DESC',
         'data': [author]
       }
     ],
