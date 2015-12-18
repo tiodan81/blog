@@ -4,6 +4,10 @@ articleView.index = function() {
   articleView.render(Article.allArticles);
 };
 
+articleView.showFiltered = function(articles) {
+  articleView.render(articles);
+};
+
 articleView.render = function(articles) {
   $('#about').hide();
   $('#articles').empty().show();
@@ -16,10 +20,6 @@ articleView.render = function(articles) {
 articleView.toHTML = function(article) {
   article.age = Math.floor((new Date() - new Date(article.publishedOn)) / 86400000);
   return articleView.template(article);
-};
-
-articleView.showFiltered = function(articles) {
-  articleView.render(articles);
 };
 
 articleView.ui = function() {
