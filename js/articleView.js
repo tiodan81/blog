@@ -1,28 +1,28 @@
 articleView = {};
 
 articleView.index = function() {
-  var _renderBlog = function() {
-    $('#articles').show();
-    $('#about').hide();
-    Article.allArticles.forEach(function(e) {
-      $('#articles').append(articleView.toHTML(e));
-    });
-    articleView.ui();
-  };
+  articleView.render(Article.allArticles);
+};
 
-  if (articleView.template) {
-    _renderBlog();
-  } else {
-    $.get('/templates/article.html', function(data, msg, xhr) {
-      articleView.template = Handlebars.compile(data);
-      _renderBlog();
-    });
-  }
+articleView.render = function(articles) {
+  console.log(articles);
+  $('#about').hide();
+  $('#articles').empty().show();
+  articles.forEach(function(e) {
+    $('#articles').append(articleView.toHTML(e));
+  });
+  articleView.ui();
 };
 
 articleView.toHTML = function(article) {
+  article.authorSlug = util.slug(article.author);
   article.age = Math.floor((new Date() - new Date(article.publishedOn)) / 86400000);
   return articleView.template(article);
+};
+
+articleView.showFiltered = function(articles) {
+  console.log(articles);
+  articleView.render(articles);
 };
 
 articleView.ui = function() {
@@ -31,7 +31,6 @@ articleView.ui = function() {
   articleView.getFilters();
   articleView.populateFilters();
   articleView.filterArticles();
-  articleView.tabNav();
   articleView.menuToggle();
 };
 
@@ -78,42 +77,17 @@ articleView.populateFilters = function() {
 
 articleView.filterArticles = function() {
   $('#filterAuthor').on('change', function() {
-    $selection = this.value;
+    $selection = util.slug(this.value);
+    console.log($selection);
     $('#filterCategory').prop('selectedIndex', 0);
-    $('.post').each(function() {
-      var data = $(this).data('author');
-      if ($selection == 'Filter by author') {
-        $('.post').show();
-      } else if (data != $selection) {
-        $(this).hide();
-      } else {
-        $(this).show();
-      }
-    });
+    page('/author/' + $selection);
   });
 
   $('#filterCategory').on('change', function() {
     $selection = this.value;
     $('#filterAuthor').prop('selectedIndex', 0);
-    $('.post').each(function() {
-      var data = $(this).data('category');
-      if ($selection == 'Filter by category') {
-        $('.post').show();
-      } else if (data != $selection) {
-        $(this).hide();
-      } else {
-        $(this).show();
-      }
-    });
+    page('/category/' + $selection);
   });
-};
-
-articleView.tabNav = function() {
-  $('.main-nav').on('click', '.tab', function(e){
-    $('.tab-content').hide();
-    $('#' + $(this).data('content')).fadeIn();
-  });
-  $('.tab').trigger('click');
 };
 
 articleView.menuToggle = function() {

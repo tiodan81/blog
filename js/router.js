@@ -1,4 +1,19 @@
-page('/', articleController.initIndex);
+page(
+  '/',
+  articleController.template,
+  articleController.initIndex
+);
+page(
+  '/author/:author',
+  articleController.template,
+  articleController.author,
+  articleController.show
+);
+page(
+  '/category/:category',
+  articleController.template,
+  articleController.category,
+  articleController.show
+);
 page('/about', reposController.index);
-
 page.start();

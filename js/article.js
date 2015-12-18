@@ -42,6 +42,31 @@ Article.prototype.deleteRecord = function(callback) {
   ], callback);
 };
 
+Article.findByCategory = function(category, callback) {
+  webDB.execute(
+    [
+      {
+        'sql': 'SELECT * FROM articles WHERE category=?',
+        'data': [category]
+      }
+    ],
+    callback
+  );
+};
+
+Article.findByAuthor = function(author, callback) {
+  console.log(author);
+  webDB.execute(
+    [
+      {
+        'sql': 'SELECT * FROM articles WHERE author=?',
+        'data': [author]
+      }
+    ],
+    callback
+  );
+};
+
 Article.requestJSON = function (callback) {
   $.getJSON('/js/hackerIpsum.json', function (data) {
     data.forEach(function(e) {

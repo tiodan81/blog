@@ -22,3 +22,37 @@ articleController.initIndex = function() {
     console.log('Epic fail. Ajax unsuccessful.');
   });
 };
+
+articleController.category = function(ctx, next) {
+  var categoryData = function(data) {
+    ctx.articles = data;
+    next();
+  };
+  Article.findByCategory(ctx.params.category, categoryData);
+};
+
+articleController.author = function(ctx, next) {
+  var authorData = function(data) {
+    console.log(data);
+    ctx.articles = data;
+    next();
+  };
+  console.log(ctx);
+  Article.findByAuthor(ctx.params.author, authorData);
+};
+
+articleController.show = function(ctx, next) {
+  console.log(ctx.articles);
+  articleView.showFiltered(ctx.articles);
+};
+
+articleController.template = function(ctx, next) {
+  if (articleView.template) {
+    next();
+  } else {
+    $.get('/templates/article.html', function(data, msg, xhr) {
+      articleView.template = Handlebars.compile(data);
+      next();
+    });
+  }
+};
